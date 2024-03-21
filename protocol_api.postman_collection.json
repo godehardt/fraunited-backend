@@ -1,0 +1,60 @@
+{
+	"info": {
+		"_postman_id": "1864d163-abc8-4438-bea8-23980aef1779",
+		"name": "protocol_api",
+		"description": "Collection of API Tests of the Robocup-CI project of Godehardt.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Protocol Current",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://<servername>/api/protocol/current",
+					"protocol": "http",
+					"host": [
+						"xx",
+						"xx",
+						"xx",
+						"xx"
+					],
+					"path": [
+						"api",
+						"protocol",
+						"current"
+					]
+				},
+				"description": "http://<servername>/api/protocol/current"
+			},
+			"response": []
+		},
+		{
+			"name": "Protocol Current ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://<servername>/api/protocol/current/id",
+					"protocol": "http",
+					"host": [
+						"xx",
+						"xx",
+						"xx",
+						"xx"
+					],
+					"path": [
+						"api",
+						"protocol",
+						"current",
+						"id"
+					]
+				},
+				"description": "http://<servername>/api/protocol/current/id"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

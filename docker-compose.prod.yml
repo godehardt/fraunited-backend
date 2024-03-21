@@ -1,0 +1,42 @@
+#         .-._
+#       .-| | |
+#     _ | | | |__FRANKFURT
+#   ((__| | | | UNIVERSITY
+#      OF APPLIED SCIENCES
+#
+#   (c) 2022-2023
+
+version: "3.8"
+
+services:
+
+  mongodb:
+    image: mongo:6.0
+    container_name: core-mongodb-1
+    ports:
+      - 27017:27017
+    restart: unless-stopped
+    env_file:
+      - ./core/.env.local
+      - ./core/.env.production
+    volumes:
+      - /home/user/dev/robocup-ci/node/mongo/data:/data/db
+      - ./core/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+    command: mongod
+
+  robocupci:
+    build: 
+      context: ./
+      dockerfile: core/prod.Dockerfile
+    container_name: core-robocupci-1
+    env_file:
+      - ./core/.env
+      - ./core/.env.local
+      - ./core/.env.production
+    ports:
+      - "80:80"
+    volumes:
+      - /home/user/dev/robocup-ci/node/uploads:/app/uploads
+    restart: on-failure
+    depends_on:
+      - mongodb

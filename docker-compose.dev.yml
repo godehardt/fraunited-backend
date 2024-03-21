@@ -1,0 +1,49 @@
+#         .-._
+#       .-| | |
+#     _ | | | |__FRANKFURT
+#   ((__| | | | UNIVERSITY
+#      OF APPLIED SCIENCES
+#
+#   (c) 2022-2024
+
+version: "3.8"
+
+services:
+
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    env_file:
+      - ./core/.env.local
+    ports:
+      - 27017:27017
+    volumes:
+      - ./core/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+    restart: unless-stopped
+    command: mongod
+
+  robocupci:
+    build: 
+      context: ./
+      dockerfile: core/dev.Dockerfile
+    container_name: backend
+    env_file: 
+      - ./core/.env.local
+      - ./core/.env
+    ports:
+      - "80:80"
+    volumes:
+      - ./core:/app/core
+    restart: on-failure
+    depends_on:
+      - mongodb
+  
+  db_setup:
+    build: 
+      context: core
+      dockerfile: dev.db_setup.Dockerfile
+    container_name: db_setup
+    depends_on: 
+     - robocupci
+    restart: "no"
+    command: sh -c "sleep 10 && cd core && sh data_in_local_db.sh"

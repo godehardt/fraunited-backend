@@ -1,0 +1,31 @@
+{
+    "name": "Fra-UNIted-Node",
+    "description": "NodeBackend for Fra-UNIted RoboCup Team",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "buildFrontend": "npm run build --prefix ../robocup-ci-vis/ && npm run build",
+        "build": "cp -r ../robocup-ci-vis/build/* core/public/ && docker compose -f docker-compose.prod.yml build",
+        "stop": "docker compose -f docker-compose.prod.yml stop",
+        "start": "export NODE_ENV=production && docker compose -f docker-compose.prod.yml start",
+        "startDevDocker": "docker compose -f docker-compose.dev.yml up -d",
+        "stopDevDocker": "docker compose -f docker-compose.dev.yml down",
+        "startDevWindows": "SET NODE_ENV=development && nodemon core/index.js",
+        "startDevLinux": "export NODE_ENV=development && nodemon core/index.js"
+    },
+    "license": "MIT",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.3",
+        "dotenv-flow": "^4.0.1",
+        "express": "^4.18.2",
+        "formidable": "^2.0.1",
+        "js-yaml": "^4.1.0",
+        "mongoose": "^6.7.1",
+        "swagger-jsdoc": "^6.2.5",
+        "swagger-ui-express": "^4.6.0"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.20"
+    }
+}
